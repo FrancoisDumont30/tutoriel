@@ -1,0 +1,90 @@
+﻿-------------
+Git workflow
+-------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+    1- A Working Directory: where you’ll be doing all the work: creating, editing, deleting and organizing files
+    2- A Staging Area: where you’ll list changes you make to the working directory
+    3- A Repository: where Git permanently stores those changes as different versions of the project.
+    
+The Git workflow consists of editing files in the working directory, adding files to the staging area, and saving changes to a Git repository. 
+In Git, we save changes with a commit, which we will learn more about in this lesson.
+		
+-----------------------------------------------------------------------------------------------------------------------------------------------------	
+							
+git init
+	The command sets up all the tools Git needs to begin tracking changes made to the project.
+
+initalized empty Git repository in /chemin_doc/.git/
+	Initialise un répertoire Git
+
+git status
+	Show changes in the working directory, untracked files, initial commit, …
+
+git add filename1.xyz filename2.xyz
+	add a file or changes to the staging area
+
+git diff filename
+	show changes of a file between the working directory and the staging area
+
+git commit -m « message »
+	store changes from staging area to working directory with a message
+
+git log
+	show the commits :
+		SHA : 40-character code
+		Author
+		Date
+		Commit message
+
+--------------
+Back tracking 
+--------------
+
+git show HEAD
+	show current commit, usually = the last commit
+
+git checkout HEAD file.xyz
+	discard last change
+
+git reset HEAD file.xyz
+	remove a file from the staging directory
+
+git reset commit_SHA
+	commit_SHA = the first 7 character of the commit you want to rewind to
+	
+-------
+Branch
+-------
+
+git branch 
+	show the branch, the * actual branch is green 
+
+git branch new_banch 
+	create a branch
+
+git checkout branch_name 
+	switch to the branch
+
+git merge branch_name
+	merge the branch to the master branch
+
+git branch -d branch_name
+	delete the branch branch_name
+
+git clone remote_location clone_name
+	copy locally the repository (called origin)
+
+git remote -v
+	show remote project (to do in the local repository)
+
+git fetch
+	downloads objects from the origin remote repository. 
+	The changes are stored in the origin/branch-name branch, waiting to be merged.
+			→ git merge origin/master : merge changes
+
+git push origin your_branch_name
+	push the branch to the remote reposetery
+
+git log --graph --decorate --oneline –all
+	show branch and commits
