@@ -1,0 +1,146 @@
+﻿Pandas
+
+create :
+	# from a list → 1 colonne
+	df = pd.DataFrame(list, columns=['col_title'])
+
+	# by col
+	pd.DataFrame({'Col0_title': ['c0r0_value', 'c0r1_value'], 
+              	'col1_title': ['c1r0_value', 'c1r1_value']},
+             	index=['r0_title', 'r1_title'])	# col_0,col_1
+	# by row
+	pd.DataFrame([[c0r0, c1r0], [c0r1, c1r1]], 	# row0,row1
+		columns=['Col0_title', 'col1_title'],
+		index=['r0_title', 'r1_title'])
+
+	
+
+
+1 column df : series (= list)
+
+	pd.Series([1, 2, 3, 4, 5])
+
+	pd.Series([val0, val1, val2], 
+		index=['r0_title', 'r1_title', 'r2_title'], 
+		name='col_name')
+
+
+	df.shape → returns (i, j) : i lignes, j columns
+
+Access :
+
+	df.col1 → access the col1 of the df DataFrame
+	df[‘col1’] → idem
+	df[‘col1’] [0] → access the col1, row0 of the df DataFrame
+
+Index-based selection :
+
+	df.iloc[ : , :] → select (every rows / every col)
+	df.iloc[:3, 0] → select (rows 0,1,2 / col 0)
+	df.iloc[[1,5],[2,4]] → select (rows 1,5 / col 2,4)
+	df.iloc[:100] → les 100 premiers
+
+Label-based selection :
+
+	df.loc[ :, [‘col1’, ‘col2’]] → select every rows of col1 and col2
+	df.loc[:99] → les 100 premiers
+
+index manipulation :
+	df.set_index(‘title’)
+
+change column order
+	df = df.reindex(columns=['col3', 'col1', 'col2'])
+	df = df[['col3', 'col1', 'col2']]
+
+
+conditionnal selection :
+	reviews.country == 'Italy'
+	reviews.loc[reviews.country == 'Italy']
+	reviews.loc[(reviews.country == 'Italy') & (reviews.points >= 90)]
+
+	isin
+	reviews.loc[reviews.country.isin(['Italy', 'France'])]
+
+	isnull or notnull
+	reviews.loc[reviews.price.notnull()]
+
+assigning data :
+	reviews['critic'] = 'everyone'
+
+Functions and method :
+	df.decribe()
+	df.col.mean() → return the average
+	df.col.unique() → return all the value encountered (at least once)
+	df.col.value_counts() → count how many time a value is encountered
+	df.size() → 
+
+	map()
+		reviews.points.map(lambda p: p - review_points_mean)
+		return a series where all value are transformed (keeps the original)
+
+		reviews.description.map(lambda desc: "tropical" in desc).sum()
+
+
+	apply()
+		reviews.apply(function, axis='columns')
+		return a dataFrame with the function applied to the column
+		axis = index : applies to rows
+
+
+Grouping :
+
+	df.groupby(‘col1’).col2.method() → group by col1, value = method on col2
+
+	df.groupby([‘col1’, ‘col5’]).col2.method() → grouping several columns
+
+	df.groupby(‘col1’). Col2.agg([funtion1, function,2,…])
+		ou			.agg(new_col =('old_col','function'))
+
+	→ can create multi-index
+		df.reset_index()
+
+Sorting :
+	df.sort_values(by=’col’) → sorting in ascending order
+	df.sort_values(by=[’col’, ‘col2’])
+	df.sort_values(by=’col’, ascending=False) → sorting in descending order
+	df.sort_index()→ sorintg by index
+
+
+Types :
+	df.dtypes →	return the types of every columns
+	df.col.dtype → return the col type
+	df.col.astype(‘float64’) → turn the type in float64 if possible
+
+Missing data :
+	Nan = value for missing data (type = float64)
+	select Nan 		→ pd.isnull() 
+	select non Nan 	→ pd.notnull() 
+
+	replace Nan		→ df.col.fillna(‘value’)
+	replace a value	→ df.col.replace(‘old value’, ‘new value’)
+
+
+Renaming :
+	df.rename(columns={‘old name’ : ‘new name’})
+	df.columns = ["name1","name2","trans_name3","name4"]
+
+
+	df.rename(index={0 :’name0’, 1 : ‘name1’})
+	set_index() → transform a column into index
+	rename_axis()
+		df.rename_axis("wines", axis='rows')
+			.df_axis("fields", axis='columns')
+Combining Df :
+	df = df1.merge(df2, how = 'left', on = 'product_id')
+
+	pd.concat([df1, df2]) 				→ df2 « under » df1
+
+	df1.join(df2, lsuffix=’_1’, rsuffix=’_2’)	→ needs index in common
+	df1.set_index("ID").join(df2.set_index("ID"))
+
+
+Manipulating :
+
+# new column in function of another :
+	df['new_col'] = np.where(condition, value if cond is true, else)
+	df['new_col'] = np.where(df['col'] == 'approved', df['amount'], np.nan)

@@ -1,0 +1,23 @@
+﻿Data Analysis Cheatsheet
+
+1. import & explore
+	data = pd.read_csv('filepath.csv')
+	data.head()
+	data.shape
+
+2. Erreur de type
+	data.dtypes
+	data['colonne'] = pd.to_datetime(data['colonne'])
+
+3. NaN
+	data.isnull().sum()
+	data.loc[data['colonne'].isnull(),:]			affiche les lignes nulles
+
+4. Duplicated
+	data.loc[data.duplicated(keep=False),:] 		recherche rapide
+	data.loc[data[['premier col', 'col2', 'col3','dernière colonne']].duplicated(keep=False),:]
+								recherche par colonne
+
+5. Outlier
+	Data.describe()
+

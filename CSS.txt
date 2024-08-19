@@ -1,0 +1,235 @@
+﻿ntroduction
+
+	h1 {color: blue;}
+		selector  h1 : html tag to modify
+		property : value ;	color : blue ;
+
+	several selectors : séparer d’une « , »	
+		h1, p, a { property : value;}		: select every h1, p and a tags
+		h3 + p {;}				: select the first p, followed after a h3 tag
+		h3 em {;}				: select em tag in h3 tag
+		a[attribute] {;}			: select a tag with the attribute (like title=,…)
+		a[attribute= "this"] {;}		: select a tag with the attribute ="this"
+		* universal selector 			: select every tag
+					More info : Selector
+
+	select an id class 
+		html : 		< class="my-classe">
+		CSS :		.my-classe {property : value;}
+	
+	call an id.
+		html : 		< id="unique">
+		CSS : 		#unique {property : value;}
+
+Comment
+	/* Comment */
+
+
+Text
+	font-size : 16px ; or 1.4em ; (en valeur relative, s’adapte aux écrans)
+	font-family : police name ; 
+		import a police   (from google font)
+			en html : 	<head><link  href="lien" rel="stylesheet">
+			en CSS : 	selectors  {font-family: "CSS rule";}
+	font-style : normal ; or italic ;
+	font-weight : bold ; or normal ; or thin ; or lighter ;
+			(thin = 100, regular = 400, bold = 700, black = 900)
+	text-decoration : underline ; or linethrough ; or none ; 
+	text-transform : uppercase ; line-height : 1.4; 
+	letter-spacing : 2px ; word-spacing : 2px  (or 1em);
+
+	text-align : left ; or center ; or right ; or justify ;
+			ne fonctionne pas avec les balises inline : span, a, em, strong
+	
+Color :
+	hex : starts with # 		color : #FFC8D3 ;
+	RGB : rgb(x,x,x)	 	color : rgb(250, 25,118) ;
+		avec opacité		color : rgba(250, 25,118, 0.5) ;
+					oppacity : 0 to 1 ;
+	More info on sites : Palettes	color picker	Gradient
+
+
+
+background : DOC 
+	background-color : 
+	background-image :
+	background-position : top ; or bottom ; or x % y % (x y coord) ; or ... ;
+	background-size : cover (l’image recouvre la largeur) ; or XX % ; or 200px 100px ;
+	background-attachement : fixed ; or scroll ; or ... ;
+	background: linear-gradient(90deg, #8360c3, #2ebf91) ;		faire un gradient
+	background :url("link" ) cover center ;  				super-property
+	
+Border
+	border-width,  border-color, border-style,…
+	border : Xpx #color style ;	ex : border : 3px #EB5353 dotted ;
+					style = solid, double, dotted, dashed,...
+
+	 border-radius : 10 px 20px 0px 90 px ;		each angle / 1 value = every angles
+		site : Fancy Border Radius
+
+Shadow
+	box-shadow Xpx Ypx GRDpx #color ;
+	text-shadow Xpx Ypx GRDpx #color ;
+
+Pseudo-classes	Change properties when specific actions :
+	:hover  	.myclass:hover {background-color: #BEAEE2; color: white;}
+	:active		on click
+	:focus		selected
+	:visited		visited link
+	:required
+	:invalid
+	:focus		
+				More info : Can I Use
+
+Structure (in body)
+
+	Header 		logo
+	footer		liens de contact, mentions légales, politique de confidentialité
+	nav			menu principal du site
+	main		inclus la majeure partie du body
+	 section	used to structure the main
+	aside		additionnal 
+	article		independant article
+
+Block and inline tags
+	block : break point 		<h1>, <p>,...
+	inline : inside block tags		<a>, <em>, <span>,…
+	
+	block tags has a dimension : width, height, margin, padding
+
+	margin : margin between page and block
+	padding : margin in the block
+	
+	margin : auto ;			= center 
+
+Flexbox
+	hmtl : create a container and boxes
+	<div class="container">
+		<div class="Box 1">
+		<div class="Box 2">
+
+	CSS 
+	.container{	display : flex		allows to use flex and put boxes in row (default)
+			flex-direction : column, row-reverse,… ;
+				puts boxes in column, in row reverse,… (= 1st axis)
+			 flex-wrap : nowrap, wrap, wrap-reverse,…
+				wrap : puts boxes in several rows if not enough space
+			justify-content	 :				alignement on the 1nd axis
+			justify-content	 : flex-start ;			align to the start 
+			justify-content	 : center ;			center 
+			justify-content	 : space-between ;		box distributed (start = 0)
+			justify-content	 : space-around ;		box distributed (start = half a gap)
+	
+			align-items :				alignement on the 2nd axis
+			align-items : stretch			(default) distributed in all the axis dimension
+			align-items : center			 center
+			align-items : baseline			 align to the start  (like flex-start for the 1st axis)
+
+
+Grid
+.container {
+  	display: grid;						create a grid (with html container class)
+  	grid-template-columns: 100px 3em 10 %;	create 3 columns
+  	grid-template-columns: 1fr 2fr 1fr;			create 3 columns with adaptative size 
+	grid-template-columns: repeat(3, 1fr);		same as above with repeat function
+  	grid-template-rows: 100px 150px 200px;		create 3 rows	
+  	gap: 10px;						create a gap between cells
+	}
+
+.box {							Define a the cell « box »
+  	grid-column-start: 1;					
+  	grid-column-end: 4;
+	grid-column-end:  span 4;			largeur de 4 box
+
+  	grid-column: 1 / 4;				colums starts at 1 to 3 (4-1)
+	grid-row: 2 / 4;
+	grid-area : 1 / 1 / 3 / 3 :			row-start / col-start / row-end / col-end
+	}
+
+display
+	a {
+  	display: block;               	/* transform an inline tag in block */
+  	display: none;                	/* hide an element */
+  	display: inline-block;        	/* transform an inline but keeps block dimension */
+	}
+
+position
+
+	b {
+  	position:relative;          /* move an element from its starting position */
+  	top:6px; 
+  	right: 6px;       
+  	position:absolute;        /* move an element from its parent starting position */
+  	left:6px; 
+  	bottom: 6px;
+	z-index: 3 ;		/* the greatest z-index is obove all other blocks */
+	position:unset;            /* initiate its parent starting position */
+	position:fixed;            /* the block stays on the same position */
+	position:sticky;           /* the block follows on slide */
+
+table
+	table {
+  	border-collapse: collapse;		/* fusionne les borders */
+	caption-side: bottom;			/* change the title’s position */
+	margin: auto;				/* center the table */
+	}
+
+	td {					
+  	border: 1px solid black;		/* Create borders */
+	 padding : 15px ;			/* Create padding */
+	}
+
+media-querries
+
+	code <head> html :
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	CSS :
+	@media screen and (max-width: 1200px) {
+	  	p {overflow: auto;}
+		}
+
+		@media screen : écran classique
+		@media all : tout type de média
+		@media print : imprimante
+		
+		 max-width, height, width, orientation	most used breakpoint
+		 and, only, not					autres combinaisons
+
+		
+		p {overflow:					règle quand le texte dépasse son box :
+			visible					texte sort du box (défaut)
+			hidden					caché = invisible
+			scroll					barre de défilement
+			auto					le navigateur décide (conseillé)
+
+
+
+Iteration method
+
+array.forEach(function) method
+	array.forEach(element=>
+    		console.log(`text ${element}`));
+
+.map(function) method 				Returns an array
+	const newFunction = array.map(ele => {
+    		return ele[0]})
+
+.filter() method					Returns an array
+	const newFunction = array.filter(num =>{
+    		return num <250});
+
+.findIndex() method					Return the index of the first element of the array 							which cond is True
+	const newFunction = array.findIndex(num => {
+    	return num > 1000;
+  	});
+
+.reduce() method					return a single value(accumulator, currentValue)
+	const newFunction = newNumbers.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;}
+    , 10);						return the sum of all the num in the array + 10 							(optionnal argument)
+
+Array method documentation :
+	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods
+
+

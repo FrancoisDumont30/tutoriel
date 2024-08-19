@@ -1,0 +1,306 @@
+﻿Element
+	<p> content </p>
+          An opening tag (<p>)
+          The content (“Hello World!” text)
+          A closing tag (</p>)
+
+	HTML element reference
+	
+Body
+	<body> <p>display on screen </p> </body>
+	Only content inside the opening and closing body tags can be displayed to the screen.
+
+CSS 
+	Lier notre fichier html au fichier CSS
+	</head>		
+	<link href ="style.css" rel ="stylesheet"> 
+	</head>
+
+Headings : <h1></h1> to  <h6></h6>
+
+ Division  <div> : allow us to group HTML elements to apply the same styles for all HTML elements inside 
+
+Attribute
+	id : <div id="intro"> </div> 
+
+Paragraph or span : used to display text
+Span : is used to separate a piece of text from a larger text 
+
+	<div>
+  		<p><span>Self-driving cars</span> are anticipated to replace up to 2 million jobs over the next two 		decades.</p>
+	</div> 
+
+
+Styling Text
+	<em> and <strong> tags.  
+		you will decide how you want browsers to display content within <em> and <strong> 
+		Browsers generally style these tags in the following ways:
+      The <em> tag will generally render as italic emphasis.
+      The <strong> will generally render as bold emphasis.
+      
+Line Breaks <br> 
+	Aller à la ligne (pas de tag de fin)
+Unordered Lists : listes avec « points »
+	<ul>
+  		<li></li>
+	</ul> 
+Ordered Lists : listes numérotées
+	<ol>
+  		<li></li>
+	</ol> 
+
+
+
+Images : uses a self-closing tags, and a « src » attributes
+
+	<img src="#" alt="A field of yellow sunflowers" title="titre"/>
+
+	FORMATS :
+	JPEG : Format photo à taille réduite   (Unsplash : site de photo libre de droits)
+	PNG : illustration, logo et dessin (garde la transparence)
+	GIF : illustration animée
+	SVG : icône, logo ou dessin : pas d’effet de pixel (format vectoriel)
+	
+	title  		info bulle : showned when picture is hovered
+
+	alt		alternative description :
+				- show a brief description of the image if images fail to load
+				- Search Engine Optimization (SEO)
+				- reading software
+
+Videos
+	 width,  height : attributes size of the video displayed
+	control attribute : enable video control (play, pause,...)
+	Video not supported : displayed if the brower is unable to load the video
+
+	<video src="Video.mp4" width="320" height="240" controls>
+    	Video not supported
+	</video>
+
+
+HTML DOCUMENTS
+	<!DOCTYPE html>	 = instruction to declare we’re using html
+				doc must be saved with « .html »
+
+	<html> </html>	= declare we’re using html code and structure
+
+	<head> </head>	contains the metadata for a web page, placed above the <body>
+				Metadata is « not displayed information »
+				
+
+	<title> </title>		Title of the web page, not displayed  (showned in the browser tab)
+
+Link (external pages)
+	<a href="https://www.link/" target ="_blank"> This Is A Link </a>
+
+		anchor : <a></a>  message to show
+		href attribute : link adress
+		target ="_blank" = open link in a new tab
+	
+Link (internal pages)
+	project-folder/
+		|— about.html
+		|— contact.html
+		|— /folder2/
+			|— index.html 
+
+	<a href="contact.html">Contact</a> 		same folder
+	<a href="folder2/contact.html">Contact</a> 	next folder		
+							si le dossier est avant : ../
+
+
+Image Link
+	Insert <img> tag, between the anchors  <a>
+
+	<a href="link"> <img src="image link" alt="#" />  Texte </a>
+    	<a href="real image"> <img src="mini image" alt="#" /> Click to enlarge</a>
+	
+Same page link
+
+	<a id="section1"> Section1</a>		Ancrer la section à rejoindre : avec id
+ 	<a href = "#section 1" > Section1</a>	Cible de l’ancre à rejoindre : avec #
+ 	
+href 
+	href = "mailto:adress@site.com"		send a mail
+	href = "filename.extension"		Download file
+
+Comments
+	<!-- Comment -- > 
+
+Tables
+	<caption> </caption> 		creates a table title
+	<table> </table> 			creates a table
+	<tr> </tr> 			adds a row
+	<td>73</td> 			add a cell =(column)
+	<th> </th> 			adds a title 	
+
+		<tr><th scope="row">Temperature</th></tr> : row title
+        		<tr><th scope="col">Days</th></tr> : column title
+
+
+Spaning Colomuns
+	<td colspan="2"> Col value </td> : 	expand the cell on 2 columns
+
+Spaning rows
+	<td rowspan="2"> row value </td> : 	expand the cell on 2 rows
+
+Table body
+	The <tbody> element should contain all of the table’s data, excluding the table headings
+
+Table headings
+	The table headings <thead>  are contained inside of this element 
+
+Table Footer
+	 the footer <tfoot>contains the totals of the data in the table. Footers are often used to contain sums, 	differences, and other data results.
+
+
+Form
+	The <form> element is a great tool for collecting information, but then we need to send that information 	somewhere else for processing. We need to supply with both the location of where the <form>‘s information 	goes and what HTTP request to make. 
+		<form action = "/example.html" method = "POST">
+		</form>
+
+			action determines where the information is sent.
+			method is assigned a HTTP verb that is included in the HTTP request
+
+Input
+	<form action = "/example.html" method = "POST">
+		<input type = "text" name = "first-text-field" value = "already pre-filled">
+	</form>
+
+		type = "text" 		: renders a text field that users can type into
+		value 			: pre-filled text field
+		placeholder		: pre-filled text, disapear on click
+		size			: change the size of the form
+		maxlenght		: limit the lenght of the input
+		autofocus		: met le curseur dans le champ (par défaut)
+		required			: cannot submit if this field is not filled
+			When the form is submitted, the text: "first-text-field=important details" is sent to 				/example.html
+		
+Label
+	<form>
+		<label for = "meal" > Label Text </label>			« Title » of the input
+		<input type = "text" name = "food" id = "meal">		 id : identify the element  
+	</form>								name : form’s variable 
+
+		 <input id> /  <label for> : to associate label and input use id / for
+
+	Password label
+		<form>
+			<label for = "user-password" > Password </label>
+			<input type = "password" id = "user-password" name = "user-password" >
+		</form>
+			type = "password" : transform input into * 
+
+Input type : Number
+
+	<form>
+		<label for = "years" > Years of experience </label>
+		<input type = "numbers"  id = "years" name = "years" step = "1">
+	</form>
+		
+		type = "numbers" : restrict what users type into the input field to numbers 
+		(and special characters like -, +, and .)
+		step creates arrows inside the input field to increase or decrease by the value
+
+Input type : Range
+
+	<form>
+    		<label for = "volume" > Volume Control </label>
+    		<input   id = "volume" name = "volume" type = "range" min = "0" max = "100" step = "1" >
+	</form> 
+
+    			type = "range" min = "0" max = "100" : creates a slider (values min to max) 
+
+
+
+
+
+
+Input type : Checkbox - Every choice can be selected
+		
+	<form>
+    	<p> Choose your :
+		<input   id = "Choice 1" name = "Choice 1" type = "checkbox">
+    		<label for = "Choice 1" > Choice1 </label> <br>
+
+    		<input[…]>
+		<label for = "Choice 2" […] </label><br>
+	</p>
+	</form> 
+			name = "Default" checked			value checked by default
+
+
+Input type : Radio Button - Only 1 choice can be selected
+
+	<form>
+    	<p> Choose your : 
+        		<input   id = "Choice1" name = "answer" type = "radio"  value = "Choice1" >
+        		<label for = "Choice1" > Choice1 </label><br>
+        		
+    		<label for = "Choice2" […] </label>
+    		<input[…] </label><br>    
+    	</p
+	</form> 
+
+Input type : email, url, tel, ...
+Input type : date, time, week, month, datetime, datetime-local,…
+Input type : search
+
+
+Dropdown list
+
+	<form>
+    		<label for = "Dropdown" > What is your choice ? </label>
+    		<select id = "Dropdown"  name = "Dropdown"> 
+        			<option value = "choice1">Choice 1 </option> 
+        			<option value = "choice2">Choice 2 </option>
+    		</select>
+	</form> 
+
+Datalist Input 		Users can write to search the value
+	<form>
+    		<label for = "Datalist" > What is your choice ? </label>
+    		<input type = "text" list = "list_id" id = "id"  name = "name">
+    		<datalist id = "list_id" > 
+        			<option value = "choice1"></option> 
+        			<option value = "choice2"></option>
+        			<option value = "Other"></option>
+    		</datalist>
+	</form> 
+
+	
+
+Text Area		Allows more than one ligne text-align (user can change the size of the box)
+	
+	<form>
+    		<label for = "blog" > Choice1 </label>
+    		<br>
+    		<textarea   id = "blog" name = " blog" rows = "5"  cols = "30" >
+    		</textarea>
+	</form> 
+Fieldset
+	<form method="get" action="">
+    	<fieldset>						<!-- crée des sections visuelles --> 
+       		<legend>Title</legend> 				<!-- Titre du fieldset --> 
+       		<label for="nom">Quel est votre nom ?</label>
+       		<input type="text" name="nom" id="nom">
+       
+       		<label 2 > </label><input 2>
+    	</fieldset> </form>
+	
+	
+Submit Form
+	<form>
+    		<input type = "submit" value = "Send">
+	</form> 
+		 		
+		
+		value = What is written on the button
+		type = "reset"		remise du formulaire à zéro
+		type = "image"		= "submit" but with an image (src=)
+		type = "button"		see javascript
+		
+
+
+
+

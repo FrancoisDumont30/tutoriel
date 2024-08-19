@@ -1,0 +1,164 @@
+﻿Decision tree
+
+
+This step of capturing patterns from data is called fitting or training the model. The data used to fit the model is called the training data. 
+
+
+Pandas :
+pd.read_csv(link)
+data.describe() → shows values of the data (sums, mean,…)
+data.columns → shows columns title
+data.dropna(axis=0) → supprime les ligne (axis=0) manquantes
+
+
+Select the data :
+	Prediction Target « y » : 
+		y = df.Column_name
+
+	Prediction Features « x » : 
+		X = df[‘Col1’, ‘Col2’, ‘Col3’, ‘Col4’,…]
+
+	Separate training data and eval data
+		from sklearn.model_selection import train_test_split
+		train_X, val_X, train_y, val_y = train_test_split(X, y, random_state = 0, 											train_size=0.8, test_size=0.2)
+
+Building the Model :
+	The steps to building and using a model are:
+    • Define: What type of model will it be? A decision tree? Some other type of model? Some other parameters of the model type are specified too.
+      
+		from sklearn.tree import DecisionTreeRegressor
+		name_model = DecisionTreeRegressor(random_state=1)
+
+    • Fit: Capture patterns from provided data. This is the heart of modeling.
+      
+		name_model.fit(train_X,train_y)
+
+    • Predict: Just what it sounds like
+
+		Prediction = name_model.predict(val_X)
+    • Evaluate: Determine how accurate the model's predictions are.
+
+Evaluate the Model :
+	Mean Absolute Error (MAE) 
+	error = actual − predicted
+
+	from sklearn.metrics import mean_absolute_error
+	print(mean_absolute_error(val_y, prediction))
+
+
+Overfitting and underfitting :
+	Underfitting : Tree not divided enough
+		the model fails to capture important distinctions and patterns in the data 
+	
+	Overfitting : Tree too much divided
+		model matches the training data almost perfectly, 
+		but does poorly in validation and other new data 
+
+
+def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
+    model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
+    model.fit(train_X, train_y)
+    preds_val = model.predict(val_X)
+    mae = mean_absolute_error(val_y, preds_val)
+    return(mae)
+for max_leaf_nodes in [5, 50, 500, 5000]:
+    my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
+    print("Max leaf nodes: %d  \t\t Mean Absolute Error:  %d" %(max_leaf_nodes, my_mae))
+
+The min value of mae, give the value of the nodes.
+Now, that the best leaf Node is defined, we can fix it and use « all the data »
+
+Best_mae = [int]
+final_model = DecisionTreeRegressor(max_leaf_nodes=Best_mae, random_state=1)
+final_model.fit(X,y)
+
+
+
+Random Forest :
+	replace DecisionTree by Randomforest
+
+
+	from sklearn.ensemble import RandomForestRegressor
+	from sklearn.metrics import mean_absolute_error
+
+	forest_model = RandomForestRegressor(random_state=1)
+	forest_model.fit(train_X, train_y)
+	predictions = forest_model.predict(val_X)
+	print(mean_absolute_error(val_y, predicitons))
+
+
+
+
+
+
+
+
+
+
+Missing Values
+
+MAE : (the lower, the better)
+
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
+
+# Function for comparing different approaches
+def score_dataset(X_train, X_valid, y_train, y_valid):
+    model = RandomForestRegressor(n_estimators=10, random_state=0)
+    model.fit(X_train, y_train)
+    preds = model.predict(X_valid)
+    return mean_absolute_error(y_valid, preds)
+
+1- Drop Columns with Missing Values
+
+# Get names of columns with missing values
+cols_with_missing = [col for col in X_train.columns
+                     if X_train[col].isnull().any()]
+
+# Drop columns in training and validation data
+reduced_X_train = X_train.drop(cols_with_missing, axis=1)
+reduced_X_valid = X_valid.drop(cols_with_missing, axis=1)
+
+print("MAE from Approach 1 (Drop columns with missing values):")
+print(score_dataset(reduced_X_train, reduced_X_valid, y_train, y_valid))
+2- Imputation
+
+from sklearn.impute import SimpleImputer
+
+# Imputation
+my_imputer = SimpleImputer()
+imputed_X_train = pd.DataFrame(my_imputer.fit_transform(X_train))
+imputed_X_valid = pd.DataFrame(my_imputer.transform(X_valid))
+
+# Imputation removed column names; put them back
+imputed_X_train.columns = X_train.columns
+imputed_X_valid.columns = X_valid.columns
+
+print("MAE from Approach 2 (Imputation):")
+print(score_dataset(imputed_X_train, imputed_X_valid, y_train, y_valid))
+
+
+
+3- Imputation & imputed values announced (in a new coloumn)
+
+# Make copy to avoid changing original data (when imputing)
+X_train_plus = X_train.copy()
+X_valid_plus = X_valid.copy()
+
+# Make new columns indicating what will be imputed
+for col in cols_with_missing:
+    X_train_plus[col + '_was_missing'] = X_train_plus[col].isnull()
+    X_valid_plus[col + '_was_missing'] = X_valid_plus[col].isnull()
+
+# Imputation
+my_imputer = SimpleImputer()
+imputed_X_train_plus = pd.DataFrame(my_imputer.fit_transform(X_train_plus))
+imputed_X_valid_plus = pd.DataFrame(my_imputer.transform(X_valid_plus))
+
+# Imputation removed column names; put them back
+imputed_X_train_plus.columns = X_train_plus.columns
+imputed_X_valid_plus.columns = X_valid_plus.columns
+
+print("MAE from Approach 3 (An Extension to Imputation):")
+print(score_dataset(imputed_X_train_plus, imputed_X_valid_plus, y_train, y_valid))
+

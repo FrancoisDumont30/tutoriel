@@ -1,0 +1,170 @@
+﻿Key takeaways
+A schema displays database tables, their relationships, and field data types.
+
+SQL types :
+- VARCHAR → Strings
+- INT → integers
+- NUMERIC → floats
+
+Databases are stored on a server, a specialized, powerful computer for data access services.
+
+ORDER : SELECT – FROM – WHERE - GROUP BY – HAVING - ORDER - LIMIT
+
+------------------------------------------------------------------------------------------------------------------------
+Coment :
+/**  TEXT  **/
+Create a database :
+CREATE TABLE table’s name (id INTEGER PRIMARY KEY,col 1 name TEXT, col 2 name INTEGER,… ) ;
+CREATE TABLE table’s name (id INTEGER PRIMARY KEY AUTOINCREMENT, col 1 name TEXT, col 2 name INTEGER,… ) ;	« crée les ID automatiqument »
+
+	Constraints (to columns) They can be used to tell the database to reject inserted data that does not adhere to a certain restriction. 
+		id  INTEGER PRIMARY KEY
+		name TEXT UNIQUE 
+		date  TEXT NOT NULL
+		year TEXT DEFAULT ‘Value’
+
+Ajouter des données (lignes) :
+INSERT INTO table’s name VA UES (1, "Bananas", 4) ;
+Make a query :
+SELECT * FROM table’s name ;  « afficher tout »
+SELECT  col name FROM table’s name ;    « afficher une colonne »
+SELECT  col name FROM table’s name WHERE col name > 5 ORDER BY col name; 
+SELECT  SUM(col name) FROM table’s name ;  «Calcul la somme de toute la colonne)
+SELECT  col name , SUM(col name) FROM table’s name GROUP BY col name; 
+SUM(col name) AS new col name «change le nom de la nouvelle colonne créée»
+------------------------------------------------------------------------------------------------------------------------
+ORDER BY
+	ORDER BY col DESC -> sort the results in descending order
+      ORDER BY col ASC -> to sort the results in ascending order
+
+Note: ORDER BY always goes after WHERE (if WHERE is present).
+
+LIMIT
+	LIMIT X ;   « Affiche X rows »
+
+
+Exemple:
+CREATE TABLE groceries (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER ) ;
+INSERT INTO groceries VALUES (1, "Bananas", 4);
+INSERT INTO groceries VALUES (2, "Peanut Butter", 1);
+INSERT INTO groceries VALUES (3, "Dark chocolate bars", 2);
+SELECT * FROM groceries;
+
+IN
+SELECT * FROM exercise_logs WHERE type = "biking" OR type = "hiking" OR type = "tree climbing" OR type = "rowing";
+
+SELECT * FROM exercise_logs WHERE type IN ("biking", "hiking", "tree climbing", "rowing");
+«same things: we select all the values that matches the «in()» of the «type column»
+IN Dynamic
+SELECT * FROM exercise_logs WHERE type IN (SELECT type FROM drs_favorites);
+«we select from another table»
+
+
+LIKE
+«ressemble à, c-à-d faire une recherche sur des mots clé,…»
+	LIKE ‘VAL_ES’ « Affiche toutes les valeurs où _  est un caractère »
+	LIKE ‘A%’ « Affiche tout ce qui commence par ‘A’ »
+		%a Termine par ‘a’
+		‘%man%’ tous les valeurs contenant ‘man’
+WHERE col name LIKE "%mot clé%");
+
+HAVING «apply a condition to a group)
+SELECT type, SUM(calories) AS total_calories FROM exercise_logs
+    GROUP BY type
+    HAVING total_calories > 150
+    ;
+
+  ...  GROUP BY type HAVING COUNT(*) ≥ 2
+	WHERE :  we want to limit the results of a query based on values of the individual rows.
+	 HAVING : we want to limit the results of a query based on an aggregate property.
+
+CASE
+SELECT type, heart_rate,
+    CASE 
+        WHEN heart_rate > 220-30 THEN "above max"
+        WHEN heart_rate > ROUND(0.90 * (220-30)) THEN "above target"
+        WHEN heart_rate > ROUND(0.50 * (220-30)) THEN "within target"
+        ELSE "below target"
+    END as "hr_zone"
+FROM exercise_logs;
+
+
+CASE
+	WHEN condition THEN «Value of the condition»
+	ELSE «Value of the condition»
+END AS «new colomn name»
+
+JOIN
+	a- cross join  «ajouter a table sous une autre»
+		SELECT * FROM table1, table2 ;
+
+	b- implicit inner join «Matching Id»
+		SELECT * FROM table1, table2 
+			WHERE table1.col_Id = table2.col_Id;
+
+	c- explicit inner join: «Best practice»
+		SELECT table1.col1, table2.col5,…  FROM table1
+			JOIN Table2
+			ON table1.col_Id = table2.col_Id;
+
+	d- Outer join (left outer, right outer join, both outer join)
+		SELECT table1.col1, table2.col5,…  FROM table1
+			LEFT OUTER JOIN Table2
+			ON table1.col_Id = table2.col_I ;	
+	e- self join
+		SELECT table.first_name, table.last_name, nickname.email AS buddy_email
+    			FROM table
+    			JOIN table nickname
+    			ON table.buddy_id = nickname.id ;
+	f- multi joins
+		SELECT a.fullname, b.fullname
+    			FROM friends  			«friends = table with both Id»
+    
+    			JOIN persons a			«person = table with the value to show»
+    			ON friends.person1_id = a.id		« Value to show = fullname»
+    
+    			JOIN persons b
+    			ON friends.person2_id = b.id ;
+   
+
+WITH
+	WITH new_VAR_name AS (SELECT col FROM table)
+	SELECT * FROM  new_VAR_name
+	« new_VAR_name » devient une nouvelle « table » dans laquelle on peut faire une request
+ 			
+    
+
+
+MODIFY
+	UPDATE table SET col  = Values WHERE id = 1 ;
+	DELETE FROM table WHERE id = 1 ;
+
+ADDING a column to an existing table
+	ALTER TABLE table ADD (COLUMN) col TEXT (or INTEGER) ;  
+
+DELETING a table
+	DROP TABLE table	
+
+WRAP SEVERAL COMMANDS:
+	BEGIN TRANSACTION;
+		UPDATE people SET husband = "Winston" WHERE user_id = 1;
+		UPDATE people SET wife = "Winnefer" WHERE user_id = 2;
+	COMMIT;
+GIVING ACCESS
+	GRANT FULL ON TABLE users TO super_admin;
+	GRANT SELECT ON TABLE users TO analyzing_user;
+
+CONDITIONS
+	IS NULL
+	different : <> or !=
+
+
+LAG and LEAD
+LAG : Showing previous values in new column. X décallage différent de 1
+	SELECT col1, col2 LAG(Col) OVER (ORDER BY col1, col2) AS name_new_col	
+	SELECT col1, col2 LAG(Col, X) OVER (ORDER BY col1, col2) AS name_new_col
+LEAD : Showing next values in new column, X décallage différent de 1
+	SELECT col1, col2 LEAD(Col) OVER (ORDER BY col1, col2) AS name_new_col
+	SELECT col1, col2 LEAD(Col, X) OVER (ORDER BY col1, col2) AS name_new_col
+	
+	

@@ -1,0 +1,20 @@
+﻿Pwd 		→ montre le dossier actuel
+ls		→ montrer les fichiers et dossiers dans le dossier actuel
+ls – la		→ montrer sous forme de liste (a : pour fichier caché)
+
+appuyer sur la molette de souris → coller la séléection
+
+Dossier
+
+cd nom 	→ accéder au dossier « nom »
+cd ..		→ revenir en arrière
+cd ../..		→ revenir en arrière 2x
+cd ~		→ revenir au dossier parent
+
+mkdir nom	→ créer le dossier « nom »
+mkdir ../nom	→ créer le dossier « nom »
+
+rm nom	→ supprimer le fichier
+rm -r nom	→ supprimer le dossier nom
+
+touch nom.py	→ créer un fichier 

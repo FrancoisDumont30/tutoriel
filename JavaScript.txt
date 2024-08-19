@@ -1,0 +1,312 @@
+﻿Variable
+
+	type : number, string, boolean, Null, Undefined, objects, Symbol
+		console.log(typeof var)		return the type of the variable
+	declare :	
+		let myAge = 43				variable variable
+		const prenom = "François"			variable constante, can’t be modified
+		(var prenom = "François"			ancien)
+		let boolean = true
+
+	modify : myAge = 44
+
+	Print in console :  console.log(myAge)
+	locale ou global :					local variable d’une fonction, non 									utilisble en dehors
+	
+	string interpolation
+		console.log(`text ${variable}`)		use backticks
+
+
+Comment
+	// single comment
+	/*  Multi ligne comment          */
+	
+Objects
+	declare : 
+		let myObject={
+    		name:"François",
+    		homme:true,
+    		age:43 }
+
+	add :
+		myObject.gender = "M"
+
+
+	delete :
+		delete myObject.gende
+
+	access :
+		const myObjectName = myObject.name
+		console.log(myObjectName)
+
+
+Array
+	declare : 
+		const myArray = ["Value1","Value2","Value3",...]
+	
+	access index
+		let index0 = myArray[0]
+
+	method :	let lenArray = myArray.length	return the number of value in the array
+			myArray.push("new value")		add a value at the end
+			myArray.pop()			delete last value
+
+Duplicate value or reference
+	 let Var1 = value
+	 let Var2 =  Var1
+				
+	if the type of value is number, string or bolean : the value is copied by "value"
+	if the value is complex (object, array,…) : the value is copied by "reference"
+		modify Var1, modifies Var2
+		in order to duplicate a complex value by value :
+			let Var2 =  [...Var1]
+
+Condition if/else
+
+	if (condition) {			compare : 
+    		"do this"			= = =  equal
+	} else {				! = = different
+        		"do that"
+    	} 
+
+
+Switch / case
+	
+	switch (test) {	
+    	case Value:					case : test = value
+        		console.log("Bravo !")
+        		break
+
+    	case "Value2":					case : test = "Value2"
+        		console.log("Restez correct !")
+        		break
+
+    	default:					no case encountered
+        		console.log("Vous avez fait une erreur de frappe.")	
+	}
+
+for loop
+	for(let i = 0; i <500; i += 1)		for(counter; stop condition; counter progress)
+	{console.log(i);				"do this"
+	}
+
+while loop
+	 let i = 0				 counter : outside from the loop
+	 while(i<3){				while(condition){
+		console.log(i)				"do this"}
+        		i++}
+
+function
+	function functionName(x,y){
+    	return x * y}
+
+	const rectangleArea = (width, height) => {			variable with unamed function
+  		let area = width * height;
+  		return area;
+		}; 
+	const squareNum = num => num * num; 
+
+	const function2 = function1 ;				no parenthesis
+	function2() ;						call the function
+
+Function as parameter
+	const funct1 = param => {
+    		param();
+    		return 
+  		}
+   
+  	const funct2 = () => {
+    		return 'I\'m being invoked by the higher-order function!';
+  		}
+  
+  	funct1(funct2);
+
+	anonimous function
+  		funct1(() => {
+  			});
+
+
+
+
+
+Get html element
+	html interaction
+	<head><script src="file.js" defer></script>		utiliser defer pour que le script soit 									utilisable dans tout le html.
+
+	GetElementById : 					hmtl "id"
+	let getHtmlTag = document.getElementById("htmlIdName");
+	console.log(getHtmlTag);				renvoie un JS Object
+	console.log(getHtmlTag.clientHeight);		renvoie la valeur de l’attribut 									"clientHeight" = DOM noeud
+	QuerySelector :
+	let hmtlTag = document.querySelector("#id tag")
+	let hmtlAllTag = document.querySelectorAll(".class")
+
+setAttribute							modify html tag attributes
+	let baliseImage = document.querySelector("#id tag")
+	baliseImage.setAttribute("alt", "new value") ;	alt = html attribute
+	baliseImage.alt = "new value";			idem
+
+classList							modify html classes
+	baliseImage.classList.add("nouvelleClasse")
+	baliseImage.classList.remove("photo")
+
+	
+createElement
+	/ create new tag <div>
+		let newHtmlTag = document.createElement("div");
+		let tagTitle = "div title"		create a title	
+		 div.innerText = tagTitle		add the title to the tag created
+
+	// find the parent tag
+		let parentElement = document.getElementById("conteneur");
+
+	// add the new tag to the parent
+		parentElement.appendChild(newHtmlTag);
+
+interpolation
+	let contenuTitre = "Azertype"
+	let contenuParagraphe = "L'application pour apprendre à taper plus vite !"
+
+	let div = `					backtick allows to write hmtl code in JS
+    		<div>
+        			<h1>${contenuTitre}</h1>
+        			<p>${contenuParagraphe}</p>
+    		</div>
+    		`;
+	 parentElement.innerHTML = div		insert the div in a parent
+
+
+
+
+
+addEventListener				action when event
+
+
+	<button id="monBouton">Cliquez-moi !</button>
+	let monBouton = document.getElementById("monBouton");
+
+	// 2 ways to do it
+	monBouton.addEventListener("click", function () {			way 1
+    	console.log("Vous avez cliqué sur le bouton")
+	});
+
+	monBouton.addEventListener("click", () => {			way 2 : fonction fléchée
+    	console.log("Vous avez cliqué sur le bouton")
+	});
+
+
+	name.addEventListener("change", () => {		renvoie le nom quand il est changé
+	console.log(name.value)
+	});
+
+
+event
+	monBouton.addEventListener("click", (event) => {			
+    	monBouton = event.target					renvoie l’élément html visé
+	console.log(`${monBouton.id}`)
+	});
+
+	
+	
+Get form values
+	text, text area, email,...
+		let text = document.getElementById("Text_Id")
+		let form = text.value
+
+	Checkbox
+		let checkbox = document.getElementById("checkbox_Id")
+		let form = checkbox.checked
+
+	Radio button
+		let radio = document.querySelectorAll('input[name="radio_name"]')
+		let form = ""
+		for (let i = 0; i < radio.length; i++) {
+    			if (radio[i].checked) {
+        			form = radio[i].value
+       			 break
+    			}
+		}
+
+	
+
+
+Prevent Submit to reload the page on click :
+
+	form.addEventListener("submit", (event) => {
+    	// On empêche le comportement par défaut
+    	event.preventDefault();
+    	console.log("Il n’y a pas eu de rechargement de page");
+
+   	 // On récupère les deux champs et on affiche leur valeur
+    	const nom = document.getElementById("nom").value;
+    	const email = document.getElementById("email").value;
+    	console.log(nom);
+    	console.log(email);
+	});
+
+
+Règles de validation des formulaires
+
+	console.log(greeting.trim());			méthode trim : nettoie le champ 
+							(suprime espaces et tabulations)
+
+
+	expression régulière (RegEx or RegExp)
+	
+	let chaine = "cachalot"; // Testez avec des chiffres pour voir la différence
+	let regex = new RegExp("^[a-z]+$");
+	let resultat = regex.test(chaine);
+	console.log(resultat); // Affiche true.
+
+		^ 	: la chaine doit commencer par ce qui suit
+		[a-z]+ : lettre de a à z
+			+ au moins un de l’élément précédent (ici lettre)
+		$ : doit se terminer par élément précédent
+
+		[a-zA-Z]  : une lettre entre a et z ou A et Z ; 
+		[a|b]  : une lettre : a ou b, à l’exclusion de toutes les autres ;
+		\d  : n’importe quel chiffre ;
+		\w  : n’importe quelle lettre ;
+		\d{3}  : au moins trois chiffres.
+		. : n’importe quel caractère
+
+		\ : permet de faire un échapement de caratère. 
+		    Parfois nécessaire de le doubler quand régle importée de regex101 ou devant un .
+		
+		training site : regex101
+
+
+
+
+
+
+
+
+try / catch			Gérer les erreurs
+
+	try {
+   	 let maVariable = document.getElementById("idInexistant")
+    	maVariable.createElement("div")
+    	// suite du traitement
+	} catch {
+    	console.log("Il y a eu une erreur dans le bloc try");
+	}
+
+throw
+
+	function verifierChamp(champ) {
+    		// Si le champ est vide, on lance une exception
+    		if (champ.value === "") {
+        			throw new Error(`Le champ ${champ.id} est vide`)
+    		}
+	}
+
+
+
+
+
+
+
+
+
+

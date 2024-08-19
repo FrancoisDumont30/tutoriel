@@ -1,0 +1,357 @@
+﻿OpenClassroom
+
+Vocabulaire :
+
+individus (objets, personnes, animaux, mesures physiques,...) c’est l’unité d’observation. 
+= lignes de la données
+variables : caractéristiques des individus, = colonnes de la données
+population : l’ensemble des individus, notée N
+
+statistique : observer et décrire objectivement un phénomène passé.
+probabilité : modéliser et prédire
+
+en statistique :
+observations = données
+modéliser = trouver des lois mathématiques
+
+statistique descriptive : présenter, décrire et résumer la donnée à l’aide de graphique et de mesures (moyenne,…) sur une ou deux variables.
+
+analyse multidimensionnelle (ou analyse exploratoire de donnée) étudie la donnée sur 3 variables ou plus.
+
+statistique inférentielle (estimateurs ou de tests statistiques): analyser les données d’un sous-ensemble d’une population pour en déduire les caractéristiques globales de la population. 
+
+modélisation de statistique : formaliser les observations sous lois mathématiques. Permet la prédiction.
+
+data analysis : terme  qui englobe les statistiques descriptives, le nettoyage et la transformation des données, la modélisation, etc.
+
+
+variables quantitatives : valeurs numériques
+	discrète : nombre définit de valeurs
+	continue : grand nombre de valeur
+
+variables qualitatives : valeurs non numériques catégorie ou modalité/
+	nominale : pas de liens entre les variables, noms.
+	ordinale : la variable peut être ordonnée ou triée
+
+variables dichotomiques (ou booléennes ou binaires) : ne prennent que 2 modalités (oui ou non,...)
+Différencier les types d’erreur :
+
+1.  valeurs manquantes
+
+2. erreur lexicale : chiffre dans une colonne texte.
+3.  erreur d'irrégularité : présentation de la donnée différente (unité de mesure,...)
+4. erreur de formatage : mauvais format (2 données au lieu d’une, format des dates,...)
+5. Doublon
+6. contradiction
+7. Outlier : valeur extrême ou impossible.
+Date format ISO 8601 : YYYY-MM-DD – HH – MM – SS
+Valeurs manquantes :
+    • a - rechercher la valeur
+    • b – Ne rien faire : travailler avec des données manquantes
+    • c- oublier la variable si elle comporte beaucoup de Nan
+    • d- oublier les individus où la variable est Nan (à faire si la variable est cruciale pour l’analyse)
+    • e- imputer = deviner la valeur
+Outliers :
+	Valeur aberrante : fausse, si impossible à retrouver→ supprime
+	Valeur atypique = possible
+Méthode robuste = méthode non perturbée par les outliers.
+Moyenne : très impactée par les outliers
+médiane : peu impactée par les outliers
+Doublons :
+	Conserver une seule ligne (en essayant de rester cohérent)
+	
+Python :
+	trouver les valeurs manquantes : 		print(data.isnull().sum())
+	valeurs extrêmes : 				voir écart interquartile ou z-score
+	doublons : 					data.loc[data['email'].duplicated(keep=False),:]
+
+	Modifier par  un mask
+	mask = # condition cible
+	mask = data['email'].duplicated(keep=False)
+	data.loc[mask, ‘ma_colonne’] = nouvelles_valeurs
+	
+	mask = ~data[‘colonne’].isin(liste)		~ prend l’inverse de la sélection
+	data.loc[mask, ‘pays’] = np.NaN		→ remplacer par NaN
+
+	gérer les doublons
+	data[‘email’] = data[‘email’].str.split(‘,’, n = 1, expand=True)[0]
+		n = 1 : nombre de division
+		expand = True : séparation se fait en colonne, on choisit la première [0]
+
+	Traiter les tailles
+		data['taille'] = data['taille'].str[:-1]	
+						enlève le dernier caractère format supposé x.xxm
+		data['taille'] = pd.to_numeric(data['taille'], errors='coerce')
+						transforme les valeurs en valeur numériques								en cas d’erreur, remplace par NaN
+		
+		data.loc[data['taille'].isnull(), 'taille'] = data['taille'].mean()	
+						remplacer les NaN par la moyenne
+	Traiter les dates
+		data['date_naissance'] = pd.to_datetime(data['date_naissance'], 
+                                           format='%d/%m/%Y', errors='coerce')
+
+
+Distribution empirique
+
+Les valeurs d’une variables qualitatives sont les modalités.
+valeurs possibles pour variable quantitative.
+Effectif : nombre d’occurence de la valeur
+fréquence : %
+Représentation :
+    • Var. Qual.			→ pie ou bar
+    • Var. Quantitatives discrètes	→ bar
+    • Var. Quantitatives continues	→ bar agrégées avec .hist()
+	agréger = discrétisation (Binning, bucketing ou discretization)
+
+
+
+Pie chart
+data["colonne"].value_counts(normalize=True).plot(kind='pie')   		# Diagramme en secteurs
+plt.axis('equal') 					# assure  un cercle plutôt qu'une éllipse
+plt.show() 						# Affiche le graphique
+
+Bar chart
+data["colonne"].value_counts(normalize=True).plot(kind='bar')
+plt.show()
+	normalize=True	→ affiche les fréquences
+Bar chart agrégée
+data[data.montant.abs() < 100]["colonne"].hist(density=True,bins=20)
+				# density : affiche ou non la fréquences
+				# bins : nombe de divisions		
+
+représentation en tableau
+effectifs = data["colonne"].value_counts()	# .hist() pour quantitative discrète
+modalites = effectifs.index 			# l'index de effectifs contient les modalités
+tab = pd.DataFrame(modalites, columns = ["colonne"]) 		# création du tableau 
+tab["n"] = effectifs.values
+tab["f"] = tab["n"] / len(data) 			# len(data) renvoie la taille de l'échantillon
+tab = tab.sort_values("quart_mois") 		# tri des valeurs de la variable X (croissant)
+tab["F"] = tab["f"].cumsum() 			# cumsum calcule la somme cumulée
+Analyse univariée
+Une analyse univariée est une analyse effectuée sur une variable à la fois.
+Une statistique est un indicateur numérique calculé à partir d'un échantillon, permettant de résumer plus ou moins fidèlement un grand échantillon en un seul nombre.
+    Il existe deux termes pour catégoriser les statistiques :
+    • Un indice statistique, c'est une statistique construite à partir d'une certaine vision, à partir de connaissances d'un domaine.
+    • Un indicateur qui est une statistique plus neutre, construite sans à-priori et sans intention derrière.
+ Le data analyst analyse des nombreux indices et indicateurs relatifs à son domaine.
+Tendance centrale
+	Data[‘colonne’].mode()			# donne la classe la plus fréquente
+	Data[‘colonne’].mean()			# moyenne
+	Data[‘colonne’].median()			# mediane
+Dispersion
+	Data[‘colonne’].var()				# variance empirique : v = 1/n Σ(xi - x)²
+	Data[‘colonne’].var(ddof=0)			# variance empirique corrigée : s’² = n v /(n-1)
+	Data[‘colonne’].std()				# écart-type empirique : s = √v
+	std()/mean()					# Coefficient de variation = s / x
+Boxplot
+rectangle délimité par Q1 et Q3, médiane entre les 
+A, B = min, max	
+Outlier = < Q1 – 1,5 IQ et > Q3 + 1,5 IQ
+	data.boxplot(column= ‘colonne’, vert = False)
+
+Mesures de forme
+
+Skewness empirique : mesure d’asymétrie
+			γ1 = μ3 / s³				avec μ3 = Σ(xi - x)³
+				si γ1 = 0 → distribution symétrique
+				si γ1 > 0 → distribution vers la droite
+				si γ1 = < → distribution vers la gauche
+			data[‘colonne’].skew()
+
+	Kurtosis empirique : mesure d’aplatissement des distri symétriques
+		γ2 = μ4 / s4				avec μ4 = Σ(xi - x)4
+				si γ2  = 0 → même distribution que la distri normale (Gauss)
+				si γ2 > 0 → distribution moins aplatie
+				si γ2  = < → distribution plus aplatie
+			data[‘colonne’].kurtosis()
+
+Mesures de concentration
+
+	Courbe de Lorenz
+	
+		
+
+
+
+	import numpy as np	
+	depenses = data[data['montant'] < 0]			# prendre les dépenses → valeurs < 0
+	dep = -depenses['montant'].values			# array avec valeurs positives
+	n = len(dep)	
+	lorenz = np.cumsum(np.sort(dep)) / dep.sum()	# tri croissant et max = 1
+	lorenz = np.append([0],lorenz) 			# ajout du 0
+
+	xaxis = np.linspace(0-1/n,1+1/n,n+1) 
+		#Il y a un segment de taille n pour chaque individu, plus 1 segment supplémentaire 		d'ordonnée 0. Le premier segment commence à 0-1/n, et le dernier termine à 1+1/n.
+	plt.plot(xaxis, lorenz, drawstyle='steps-post')
+	plt.show()
+	
+médiale :  
+	y = 0,5 → donne la position de la personne qui a le salaire médial (à mi-hauteur)
+	x = 0,5 → donne la personne qui a le salaire médian. (50 % moins et 50 % plus)
+
+Indice de Gini
+
+
+	gini = 2 x S
+
+	
+
+
+
+
+
+
+
+
+	AUC = (lorenz.sum() -lorenz[-1]/2 -lorenz[0]/2)/n 
+	S = 0.5 - AUC            # surface entre la première bissectrice et le courbe de Lorenz
+	gini = 2*S
+	gini
+
+	
+
+
+
+
+
+Analyse bivariée
+
+	Analyse entre deux variables
+	
+Corrélation
+La corrélation entre deux variables correspond à la relation qu'il existe entre elles : si on connaît la valeur de l'une, alors on peut plus ou moins précisément déduire la valeur de l'autre.
+
+ Au niveau mathématique, étudier une corrélation entre deux variables revient à étudier la dépendance qu'il existerait entre les deux évènements ayant généré ces variables.
+
+ On peut avoir une corrélation sans avoir de lien de cause à effet.
+
+
+Tableau de contingence (2 variables qualitatives)
+
+
+
+
+
+
+
+
+
+
+
+Chacune des valeurs du tableau de contingence (hors colonnes TOTAL) est appelée effectif conjoint nij
+
+L'ensemble effectifs conjoints est appelé distribution conjointe empirique de (nom café, boisson préférée).
+
+La dernière ligne (TOTAL) est appelée distribution marginale empirique de boisson préférée, et la dernière colonne (TOTAL) est appelée distribution marginale empirique de nom café.
+
+L'ensemble des effectifs conjoints de la première ligne (Chez Luc) est appelé distribution conditionnelle empirique de boisson préférée étant donné que nom café = Chez Luc.
+
+Indicateurs numériques de corrélation
+
+	import scipy.stats as st
+	import numpy as np
+	print(st.pearsonr(depenses["solde_avt_ope"],-depenses["montant"])[0])
+	print(np.cov(depenses["solde_avt_ope"],-depenses["montant"],ddof=0)[1,0])
+
+	
+
+    Il est intéressant de faire une représentation graphique pour avoir un aperçu visuel d'une corrélation.
+
+Le graphique le plus adapté dans le cas de deux variables quantitatives est un diagramme de dispersion, qui n'est autre qu'un nuage de points (ou scatter plot, en anglais).
+
+    Le coefficient de corrélation de Pearson ou coefficient de corrélation linéaire permet de compléter numériquement l'analyse de la corrélation.
+Ce dernier n'est pertinent que pour évaluer une relation linéaire. Il prend des valeurs entre -1 et 1, et le signe du coefficient indique le sens de la relation.
+
+
+Régression linéaire
+Un modèle de régression linéaire est un modèle statistique qui cherche à établir une relation linéaire entre une variable, dite expliquée, et une ou plusieurs variables, dites explicatives.
+La régression linéaire peut être utilisée pour comprendre les variations d'une variable mais également à des buts de prédiction.
+Elle consiste dans le cas de deux variables quantitatives X et Y , à déterminer a et b de sorte à obtenir l'équation suivante :  Y=a.X+b+ϵ
+L'objectif est donc de déterminer a et b pour minimiser l'erreur supposée commise par notre modèle, représentée par ϵ : la méthode la plus utilisée pour cela est la méthode des moindres carrés ordinaire (MCO).
+Le coefficient de détermination noté R2 permet d'évaluer la qualité d'un modèle. Il  représente le pourcentage de variation expliquée de la variable cible par notre modèle.
+	
+import statsmodels.api as sm
+
+Y = data['Position']
+X = data[['Age']].copy()
+X['intercept'] = 1.
+result = sm.OLS(Y, X).fit() # OLS = Ordinary Least Square (Moindres Carrés Ordinaire)
+a,b = result.params['Age'],result.params['intercept']
+
+result.params				# affiche a et b
+R2 = result.rsquared			# affiche R2
+
+
+Analyse variable quant et qual par ANOVA
+
+	X = "categ" 			# qualitative
+	Y = "montant" 		# quantitative
+
+# On ne garde que les dépenses
+	sous_echantillon = data[data["montant"] < 0].copy()
+# On remet les dépenses en positif
+	sous_echantillon["montant"] = -sous_echantillon["montant"]
+# On n'étudie pas les loyers car trop gros:
+	sous_echantillon = sous_echantillon[sous_echantillon["categ"] != "LOYER"] 
+	modalites = sous_echantillon[X].unique()
+	groupes = []
+	for m in modalites:
+    		groupes.append(sous_echantillon[sous_echantillon[X]==m][Y])
+
+# Propriétés graphiques (pas très importantes)    
+	medianprops = {'color':"black"}
+	meanprops = {'marker':'o', 'markeredgecolor':'black', 'markerfacecolor':'firebrick'}
+
+	plt.boxplot(groupes, labels=modalites, showfliers=False, medianprops=medianprops, 
+            vert=False, patch_artist=True, showmeans=True, meanprops=meanprops)
+	plt.show()
+
+	def eta_squared(x,y):
+    		moyenne_y = y.mean()
+    		classes = []
+    		for classe in x.unique():
+        			yi_classe = y[x==classe]
+        			classes.append({'ni': len(yi_classe), 'moyenne_classe': yi_classe.mean()})
+    		SCT = sum([(yj-moyenne_y)**2 for yj in y])
+    		SCE = sum([c['ni']*(c['moyenne_classe']-moyenne_y)**2 for c in classes])
+    		
+		return SCE/SCT
+    
+	eta_squared(sous_echantillon[X],sous_echantillon[Y])
+
+
+Le graphique le plus adapté pour représenter la relation entre une variable quantitative et une variable qualitative est une boite à moustaches, ou boxplot, en anglais.
+
+L'ANOVA est une modélisation qui essaie d'expliquer les variations de la variable quantitative en fonction des modalités de la variable qualitative.
+
+Elle permet de calculer le rapport de corrélation, noté  η2 utile pour évaluer numériquement la corrélation.
+Analyse deux variables qual Chi-2
+	X = "quart_mois"
+	Y = "categ"
+	cont=data[[X,Y]].pivot_table(index=X, columns=Y, aggfunc=len, margins=True, 						margins_name="Total")
+	cont
+
+	import seaborn as sns
+
+	tx = cont.loc[:,["Total"]]
+	ty = cont.loc[["Total"],:]
+n = len(data)
+indep = tx.dot(ty) / n
+
+c = cont.fillna(0) # On remplace les valeurs nulles par 0
+measure = (c-indep)**2/indep
+xi_n = measure.sum().sum()
+table = measure/xi_n
+sns.heatmap(table.iloc[:-1,:-1],annot=c.iloc[:-1,:-1])
+plt.show()
+
+
+
+
+Dans le cas de l'analyse des corrélations entre deux variables qualitatives, on optera pour un tableau de contingence, plutôt qu'une représentation graphique.
+
+Il est cependant possible de faire apparaître sur ce tableau les cases participant le plus à une possible corrélation, via une carte de chaleur ou heatmap.
+
+La mesure que l'on fait alors apparaître sur chaque case d'une heatmap est une mesure de contribution à la non-indépendance, qui prend des valeurs entre 0 et 1.
+
+À partir de toutes ces contributions, on peut calculer le coefficient de chi2.
