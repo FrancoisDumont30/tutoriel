@@ -7,15 +7,16 @@ man fonction	-> show help
 q		-> exit
 
 
-
 Pwd 		-> montre le dossier actuel
 ls		-> montrer les fichiers et dossiers dans le dossier actuel
 ls – la		-> montrer sous forme de liste (a : pour fichier caché)
+
 
 cd nom 		-> accéder au dossier « nom »
 cd ..		-> revenir en arrière
 cd ../..	-> revenir en arrière 2x
 cd ~		-> revenir au dossier parent
+
 
 mkdir "nom"	-> créer le dossier nom
 mkdir ../nom	-> créer le dossier « nom »
@@ -24,6 +25,7 @@ rm nom		-> supprimer le fichier
 rm -r nom	-> supprimer le dossier nom
 
 touch nom.py	-> créer un fichier 
+
 
 mv file_name folder_name	
 		-> move the file "file_name" in the forlder "folder_name"
@@ -49,8 +51,7 @@ Ctrl + e		-> aller à la fin de la ligne actuelle
 *			-> select everything
 			move * folder_name : move evry file to the folder
 			move 
-			
-			
+					
 -----
 Files
 -----
