@@ -37,10 +37,8 @@ Start a local project
 						
 git init
 	-> The command sets up all the tools Git needs to begin tracking changes made to the project.
-
-Initialized empty Git repository in c:/users/JohnDoe/Documents/PremierProjet/
-	-> Initialise un répertoire Git 
-
+	Initialized empty Git repository in ~location/.git/
+	
 ------
 Basics
 ------
