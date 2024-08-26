@@ -62,8 +62,9 @@ less file.xyz		-> show the content of the file in a window, arrow to move, q to 
 XXX > file.xyz		-> create a file with the XXX function result
 grep XXX file.xyz	-> look for XXX in the file.xyz
 
-pbcopy < Location	-> copy the content of the file.
-
+??? pbcopy < Location	-> copy the content of the file. ???
+cat c/file_location | clip
+			-> copy the content of the file.
 
 ------
 System
