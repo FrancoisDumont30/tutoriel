@@ -1,0 +1,20 @@
+python -m venv env		# env = nom du dossier créé
+
+cd env
+cd Scripts
+
+source activate			# active l'environnement virtuel
+deactivate			# désactive l'environnement virtuel
+
+
+pip freeze > requirements.txt     	# Générer un fichier de dépendances
+pip install -r requirements.txt    	# Installer les paquets à partir du fichier de dépendances
+
+---------------
+
+
+import sys
+from pprint import pprint
+pprint(sys.path)
+
+
