@@ -87,7 +87,7 @@ Structure (in body)
 	footer		liens de contact, mentions légales, politique de confidentialité
 	nav			menu principal du site
 	main		inclus la majeure partie du body
-	 section	used to structure the main
+	section		used to structure the main
 	aside		additionnal 
 	article		independant article
 
