@@ -1,0 +1,102 @@
+Python OOP
+
+--- créer une classe
+class Voiture :
+	marque ="Toyota"
+	couleur = "rouge"
+print(Voiture.marque)		# output : Toyota
+
+
+--- créer une instance
+voiture_01 = Voiture():
+print(voiture_01.marque)	# output : Toyota
+
+
+--- heritage
+class Enfant(Mere):
+
+--- Polymorphisme
+= redéfinir une méthode de la classe parent dans la méthode enfant.
+
+
+--- Modifier la classe = modifier les instances
+Voiture_01.marque = "Aston Martin"
+
+
+--- init
+class Voiture :
+	voitures_crees = 0
+	def __init__(self, marque):
+		Voiture.voitures_crees += 1
+		marque = marque
+
+Voiture_01 = Voiture("Toyota")
+print(voiture_01.marque)	# output : Toyota
+print(Voiture.voitures_crees) 	# output : 1
+
+
+--- init + méthodes
+class Voiture :
+	def __init__(self, marque):
+	self.marque = marque  # appelé attribut d'instance
+
+	def afficher_marque(self):
+		print(f"La voiture est une {self.marque}")
+
+voiture_01 = Voiture("Toyota")
+
+voiture_01.afficher_marque()
+# revient à faire
+Voiture.afficher_marque(voiture_01)
+
+
+
+--- dataclass
+from dataclasses import dataclass
+from typing import ClassVar
+
+@dataclass
+class User:
+	first_name : str
+	last_name : str =""	# argument optionnel
+	# revient à faire :
+	def __init__(self, first_name: str, last_name:str):
+		self.first_name = first_name
+		self.last_name = last_name
+
+	attribut_de_classe : ClassVar[int]	# crée un attribut de Classe, non visible dans les instances.
+
+	def __post_init__(self):		# crée un attribut, après l'initialisation
+		self.full_name = f"{self.first_name} {self.last_name}"
+
+patrick = User(first_name="Patrick", last_name = "Smith")
+print(repr(patrick))		# repr est automatique avec la dataclass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

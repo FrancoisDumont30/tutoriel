@@ -1,0 +1,104 @@
+Objet :nom / attributs / comportement
+	ex: stylo / bleu, à bille / écrire()
+
+Classe : modèle pour créer des objets uniques mais avec la même structure.
+
+Encapsulation : Manière de restreindre les info dans une classe.
+	3 niveaux :
+		public (+) : Toutes les classes
+		protected (#) : Classe actuelle et ses dérivé 
+		private (-) : Classe actuelle seulement
+
+	méthodes getters (ascenseur) : accéder aux données
+	méthodes setters (mutateur) : modifier les données
+
+
+Héritage : Créer une classe à partir d'une classe existante.
+	Conserve les attributs et les méthodes.
+
+	Superclasse (ou classe parent)
+	Class person : nom, age / parler(), marcher()
+
+	Sous-classe (ou classe enfant)
+	Class Eleve = class person + matière enseignée / etudier()
+
+Classe abstraire :
+	ne peut être instanciée
+	Existe à travers ses héritiers
+	ontient au moins une méthode abstraite
+
+Classe finale :
+	n'aura pas d"héritier ou de parents
+
+Héritage multiple : Hériter de plusieurs classes
+
+Abstraction : 
+	Cacher les fonctions non essentielles à la compréhension.
+	methode parler()
+		abstraction de bouger les lèvres,...
+
+Polymorphisme :
+	La même méthode peut être différente dans plusieurs classe.
+	Dessiner() des classes carré, triangle, rond n'affichent pas la même 	chose.
+
+Interface :
+	contrat" entre classes : représentée interface "", lien en pointillés
+	
+
+Différences des langages de programmation :
+Typage : dynamique ou statique.
+	statique : il faut déclarer les types des variables (str, int,...) avant le code. 	- Java
+	dynamique : pas besoni qu'elle soit définie dans le code, 			 	- PHP, python, ruby, JS
+Heritages :
+	single (PHP, Java), multiple (python), mixinx (Ruby), prototypes (JS)
+
+
+
+Bonnes pratiques :
+
+KISS : keep it simple stupid
+DRY : Don't repeat yourself
+YANI : You aren't gonna need it
+SOLID :
+	Single Responsibility Principle : chaque méthode ou classe doit être limitée à certaines fonctionnalités
+	Open Closed Principle : 
+	Liskov Substitution Principle
+	Interface Segregation Principle
+	Dependecy Inversion Principle
+
+Design patern :
+trois groupes : créationnel, comportemental, et structurel.
+
+- Les designs patterns structuraux expliquent comment assembler desobjets et des classes en de plus grandes structures, 
+tout en lesgardant flexibles et efficaces. 
+
+- les designs patterns comportementaux mettenten place une communication efficace, 
+et répartissent lesresponsabilités entre les objets.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+

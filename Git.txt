@@ -12,12 +12,41 @@ In Git, we save changes with a commit, which we will learn more about in this le
 		
 -----------------------------------------------------------------------------------------------------------------------------------------------------	
 
+
+-----
+Manip
+-----
+
+- export fichier access
+- git init --initial-branch=main
+- Image + VS code
+- créer gitignore
+- gitlab : nouveau
+- git config
+- git add remote / commit / push
+-> voir gitlab
+
+- créer changement dans access
+- export
+- git diff ?
+- git add remote / commit / push
+
+
+--------------
+Manip - import
+--------------
+- se mettre dans un répertoire
+- git clone """link""" """nom_dossier"""
+!!! nom de dossier identique !!!
+
+
+
 ---------------
 Getting started
 ---------------
 
 1. --- from scratch ---
-git config (--global) user.name "Name"
+git
 git config (--global) user.email "mail_adress"
 
 git init --initial-branch=main
@@ -25,7 +54,7 @@ touch .gitignore
 git add -A
 git remote add origin """link"""
 git commit -m "Initial commit"
-git push origin main
+git push --set-upstream origin main
 
 
 2 --- import a repository ---
@@ -66,7 +95,7 @@ git add file1.xyz file2.xyz
 	-> add files or changes to the staging area
 
 git rm --cached file1.xyz
-	-> untrack a file
+	-> untrack a file, remove from Origin
 
 git diff filename
 	-> show changes of a file between the working directory and the staging area
@@ -96,7 +125,7 @@ git reset HEAD file.xyz
 
 git reset commit_SHA
 	commit_SHA = the first 7 character of the commit you want to rewind to
-	-> Back to the commit, removes commits made after
+	-> fait remonter une branche en arrière comme si le(s) commit(s) n'avai(en)t jamais eu lieu.
 
 git revert commit_SHA
 	-> Make a new commit to come back to the commit state, keep all the history.
@@ -109,6 +138,20 @@ git clean -n
 
 git clean -f
 	-> delete all untracked files
+
+git checkout main^
+	-> revenir au commit précédent
+
+git checkout HEAD~4
+	-> revenir 4x en arrière
+
+git branch -f main HEAD~3
+	-> changer une branche
+
+git cherry-pick <Commit1> <Commit2> <...>
+	-> déplace les commit sous le HEAD
+
+git rebase -i HEAD~5
 
 -------
 Branch
@@ -148,7 +191,13 @@ git log --graph --decorate --oneline –all
 	-> show branch and commits
 ???	
 	
-	
+git submodule add """link"""
+	-> ajoute un autre répertoire git.
+
+git stash 
+	-> sauve l'état du dépot local pour travailler ailleurs. 
+
+
 	
 	
 ---------

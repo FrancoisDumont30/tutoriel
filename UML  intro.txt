@@ -1,0 +1,110 @@
+Etapes de Dev :
+- analyse des besoins (comprendre le problème)
+- Conception (planifier)
+- Développement (coder)
+
+Besoins fonctionnels : caractèristiques, foncitons de bases
+Besoins non-fonctionnels : conditions ou capacités qui doivent être respectées par l'app.
+
+Fonctionnel : que faire, quesl fonctions faire ?
+Technique : comment le faire ?
+
+Besoins d'un projet :
+- ressources
+- exigences légales
+- Perf
+- Ergonomie
+- Disponibilité et support
+- Maintenance
+- Sécurité
+- Fiabilité
+
+
+Diag UML :
+Fonctionnel : diag. cas d'utilisation
+Statique : diag. classe, objets, composants, déploiement
+Dynamique : diag. d'état, activités, séquences, coolaboration
+
+
+Diagramme de classe : 
+	décrit nom, attributs, mèthode.
+	
+
+______\ généralisation  	  	 
+      /
+Lien parent-enfant
+
+------>  Dépendances 
+Relation d'utilisation qui établit qu'un changement de spécification d'un élément peut en affecter un autre qui l'utilise, 
+mais que l'inverse n'est pas nécessairement vrai.
+
+__________  association
+les objets se connaissent et peuvent travailler ensemble.
+quand une classe : possède, contrôle, est relié à, est une partie de, est membre de, a comme membre,...
+< >_____ Agrégation : 
+l'enfant (pilote) peut exister sans le parent (voiture)
+
+<x>_____ Composition
+chaque partie ne peut être membre que d'un seul agrégat.
+l'enfant (pilote) ne peut pas exister sans le parent (voiture)
+
+
+
+Analyse des besoins : formuler les besoins de l'app.
+- app doit être compatible avec windows, linux,... (non fonctionnel)
+- utilisateur doit se connecter pour commander (fonctionnel)
+...
+
+
+Modéliser, c'est décrire de manière visuelle et graphique les besoins et les solutions fonctionnelles et techniques de votre logiciel.
+
+
+Cas d'utilisation :
+	description plus détaillée, du point de vue de l'utilisateur.
+	est composé :
+		d'un titrce : qui décrit l'objectif
+		un acteur : intéragit avec l'app. (utilisateur, technicien, API,)
+		un objectif : comment atteindre l'objectifs (étapes)
+
+
+Diagramme d'utilisation :
+	décrit comment les acteurs interagissent avec l'app
+	
+User story
+	En tant que <Rôle> je veux <Quoi> afin de <Pourquoi> 	
+	légère et rapide à mettre en place
+
+Use case :
+	-> app complexe
+
+
+Modèle conceptuel :
+	identifier les objets de notre application
+	dessiner schèma simple entre les objets
+	Ne pas chercher la perfection.
+
+
+CRC : Class, Responsabilités, Collaborateurs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

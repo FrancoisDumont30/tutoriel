@@ -1,0 +1,117 @@
+# --- Créer des noeuds :
+
+MATCH (n) DETACH DELETE n;
+
+MERGE (:Movie {title: 'Apollo 13', tmdbId: 568, released: '1995-06-30', imdbRating: 7.6, genres: ['Drama', 'Adventure', 'IMAX']})
+MERGE (:Person {name: 'Tom Hanks', tmdbId: 31, born: '1956-07-09'})
+MERGE (:Person {name: 'Meg Ryan', tmdbId: 5344, born: '1961-11-19'})
+MERGE (:Person {name: 'Danny DeVito', tmdbId: 518, born: '1944-11-17'})
+MERGE (:Person {name: 'Jack Nicholson', tmdbId: 514, born: '1937-04-22'})
+MERGE (:Movie {title: 'Sleepless in Seattle', tmdbId: 858, released: '1993-06-25', imdbRating: 6.8, genres: ['Comedy', 'Drama', 'Romance']})
+MERGE (:Movie {title: 'Hoffa', tmdbId: 10410, released: '1992-12-25', imdbRating: 6.6, genres: ['Crime', 'Drama']})
+
+
+# --- Vérifier la création / afficher les noeuds :
+
+MATCH (n) RETURN n
+
+
+# --- Ajouter des noeuds :
+
+MERGE (u:Node_Name {Property1: Value})
+SET u.property2 = "Value"
+
+
+# --- Créer les relations :
+MATCH (apollo:Movie {title: 'Apollo 13'})			/--- Définir les noeuds de départ et fin
+MATCH (tom:Person {name: 'Tom Hanks'})
+MATCH (meg:Person {name: 'Meg Ryan'})
+MATCH (danny:Person {name: 'Danny DeVito'})
+MATCH (sleep:Movie {title: 'Sleepless in Seattle'})
+MATCH (hoffa:Movie {title: 'Hoffa'})
+MATCH (jack:Person {name: 'Jack Nicholson'})
+
+// create the relationships between nodes			/--- Définir les liens entre les noeuds de départ et fin
+MERGE (tom)-[:ACTED_IN {role: 'Jim Lovell'}]->(apollo)
+MERGE (tom)-[:ACTED_IN {role: 'Sam Baldwin'}]->(sleep)
+MERGE (meg)-[:ACTED_IN {role: 'Annie Reed'}]->(sleep)
+MERGE (danny)-[:ACTED_IN {role: 'Bobby Ciaro'}]->(hoffa)
+MERGE (danny)-[:DIRECTED]->(hoffa)
+MERGE (jack)-[:ACTED_IN {role: 'Jimmy Hoffa'}]->(hoffa)
+
+
+# --- Querries :
+MATCH (p:Person)-[:ACTED_IN]-(m:Movie)
+WHERE m.title = 'Sleepless in Seattle'
+RETURN p.name AS Actor
+
+MATCH (u:User)-[:RATED]-(m:Movie)
+WHERE m.title = 'Apollo 13'
+RETURN count(*) AS `Number of reviewers`
+
+MATCH (p:Person)-[:ACTED_IN]-(m:Movie)
+WHERE m.title = 'Hoffa'
+RETURN  p.name AS Actor, p.born as `Year Born` ORDER BY p.born DESC LIMIT 1
+
+MATCH (m:Movie)
+WHERE m.released STARTS WITH '1995'
+RETURN  m.title as Movie, m.imdbRating as Rating ORDER BY m.imdbRating DESC LIMIT 1
+
+
+# --- Add Actor labels :
+MATCH (p:Person)
+WHERE exists ((p)-[:ACTED_IN]-())
+SET p:Actor
+
+
+
+# --- Add Property :
+MATCH (apollo:Movie {title: 'Apollo 13', tmdbId: 568, released: '1995-06-30', imdbRating: 7.6, genres: ['Drama', 'Adventure', 'IMAX']})
+MATCH (sleep:Movie {title: 'Sleepless in Seattle', tmdbId: 858, released: '1993-06-25', imdbRating: 6.8, genres: ['Comedy', 'Drama', 'Romance']})
+MATCH (hoffa:Movie {title: 'Hoffa', tmdbId: 10410, released: '1992-12-25', imdbRating: 6.6, genres: ['Crime', 'Drama']})
+MATCH (casino:Movie {title: 'Casino', tmdbId: 524, released: '1995-11-22', imdbRating: 8.2, genres: ['Drama','Crime']})
+SET apollo.languages = ['English']
+SET sleep.languages =  ['English']
+SET hoffa.languages =  ['English', 'Italian', 'Latin']
+SET casino.languages =  ['English']
+
+
+
+# --- Transformer une propriété en noeud :
+MATCH (m:Movie)
+UNWIND m.languages AS language
+WITH  language, collect(m) AS movies
+MERGE (l:Language {name:language})
+WITH l, movies
+UNWIND movies AS m
+WITH l,m
+MERGE (m)-[:IN_LANGUAGE]->(l);
+MATCH (m:Movie)
+SET m.languages = null
+
+
+
+
+# --- Test modéliser BDD Largier :
+
+MERGE (:Table {nom: 'Article_contrat', Bdd: 'Base_Contrat'})
+MERGE (:Table {nom: 'Ligne_contrat', Bdd: 'Base_Contrat'})
+MERGE (:Table {nom: 'Type_Materiel', Bdd: 'Base_Contrat'})
+MERGE (:Table {nom: 'Chapitre_CG_Contratt', Bdd: 'Base_Contrat'})
+MERGE (:Table {nom: 'Contrat', Bdd: 'Base_Contrat'})
+MERGE (:Table {nom: 'Saison', Bdd: 'Base_Contrat'})
+
+MERGE (:Table {nom: 'Type_TVA', Bdd: 'Suivi-Chantier_be2'})
+MERGE (:Table {nom: 'Affaire', Bdd: 'Suivi-Chantier_be2'})
+MERGE (:Table {nom: 'Contact_Partenaire', Bdd: 'Suivi-Chantier_be2'})
+MERGE (:Table {nom: 'Personnel', Bdd: 'Suivi-Chantier_be2'})
+
+
+
+MATCH (n) RETURN n
+
+
+
+
+
+

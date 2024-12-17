@@ -1,0 +1,122 @@
+Bases de python
+
+
+--- Type de données : 
+- numérique (int, float, complex)
+	complex : a = 2 + 3j
+- dictionnaire
+- Boolean
+- Set
+- Type de sequence (str, list, tuple)
+
+
+--- type opérations
+% modulo : partie entière d'une division
+// : reste de la division
+
+And : return True if both are True
+Or : return True if one is True
+Is (Is not): return True if are same object
+
+--- Tuple
+ne peut être modifié
+Tuple = ()
+
+--- Set
+ens = {} ou ens = set()
+'x' in ens		# True or False
+Magie = set('abracadabra')
+print(Magie)		# {'a', 'd', 'r', 'b','c'}
+Magie2 = set('alacazam')
+print(Magie & Magie2)	# {'c', 'a'}
+
+--- dict
+Mois = {'Jan':31, 'fev':28}
+Mois = dict({'Jan':31, 'fev':28}) # alternative
+
+print(Mois['Jan']) 	# 31
+
+Mois['Jan'] = 30  # modifier
+Mois['Mar'] = 31  # ajouter
+
+Mois.keys()		# affiche toutes les clés
+Mois.values()		# affiche toutes les valeurs
+Mois.items()
+
+
+--- For
+break : sortir de la boucle
+continue : passe à l'itération suivante
+
+--- def(args) 
+def somme(*args):
+  x = 0
+  for i in args
+    x +=1
+  return x
+
+--- lambda
+liste = [1,2,3,4,5]
+list(filter(lambda x:x>2, liste))	# [3,4,5]
+	
+
+--- Structure de données ----------------------------------------------------------
+	--- Tableaux
+	valeurs stockées l'une à coté des autres.
+
+	--- Liste chainée
+	Chaque élément contient sa valeur et pointe vers le suivant
+	doubelemnt chainée : idem mais pointe aussi vers le précédent
+
+	--- Pile
+	Le dernier élément ajouté est le premier à sortir
+	similaire aux listes avec append() et pop()
+	utilité : algo basé sur le backtrak, gestion synthaxique des grammaires ass. aux lang. program, évaluation d'expression, syst d'écriture,
+
+	--- File
+	Le premier élément ajouté est le premier à sortir
+	from collections import deque
+	utilité : gestion des files de messages, processus de type producteur/consommateur, exécution de processus (OS, batch,...)
+
+	--- table de hachage
+	= dictionnaire
+	utilité : accès plus rapide que les tableaux.
+
+--- Fonction récursive : la fonction se retoune elle-même.
+def fct(x):
+  return x * fct(x-1)
+
+
+
+
+--- Alg tri ----------------------------------------------------------
+
+--- Alg tri à bulle (ou tri par propagation)
+	compare les 2 premiers, les remetes dans l'ordre, et passe aux n°2 et n°3,...
+
+--- Alg tri Diviser pour régner
+	crée un arbre de division où la liste est divisée en 2, jusqu'à ce qu'il n'y ait plus que des listes de 1.
+	Ensuite, il remonte l'arbre en comparant, 2 branches et les regroupes dans l'ordre.
+
+--- Alg tri rapide
+	choisit un pivot, et compare ce pivot à 2 indices : la première et dernière valeur(hormis le pivot).
+	l'indice début avance tant que le chiffre pivot est supérieur au chiffre du pivot.
+	l'indice fin recule tant que le chiffre pivot est inférieur au chiffre du pivot.
+	Quand les 2 indices ne "bougent plus", on inverse les valeurs des deux indices.
+	l'opération recommence, jusqu'à ce que les 2 indices se croisent.
+	à ce moment, on échange le pivot et l'indice de début. (= position finale du pivot)
+	toutes les valeurs à gauche du pivot sont < au pivot, celles de droites > pivot
+	refait la même opération, en divisant la liste en 2 listes, séparées par le pivot initial.
+
+
+
+
+
+
+
+
+
+
+
+
+

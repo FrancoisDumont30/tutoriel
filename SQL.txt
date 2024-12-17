@@ -7,6 +7,24 @@ SQL types :
 - NUMERIC → floats
 
 Databases are stored on a server, a specialized, powerful computer for data access services.
+DML : Data manipulation Language : (select, insert, update, delete)
+DDL : Data Definition Language (Create, alter, drop)
+DCL : Data Control Language (Grant, Revoke)
+TCL : Transaction Control Language (Begin, start, commit, end, rollback)
+
+
+Abréviations :
+Id :
+Pk : Primary Key
+FK : Foreign key
+Ak ou Sk : Alternate ou Surrogate key (clé candidate)
+UQ : unique
+
+
+
+
+
+
 
 ORDER : SELECT – FROM – WHERE - GROUP BY – HAVING - ORDER - LIMIT
 

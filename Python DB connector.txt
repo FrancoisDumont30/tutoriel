@@ -1,0 +1,61 @@
+
+
+------------------SQL------------------------------------
+
+pip install mysql-connector-python
+
+import mysql.connector
+
+db = mysql.connector.connect( 	# voir les info dans SQL, database > manage connection
+  host="localhost",
+  users="login",
+  password="mot_de_passe",
+  database="nom_data_base")
+			
+
+db.close() # fermer la connection
+
+
+--- créer un lien
+crs = db.cursor()
+crs.execute('select * from database')		# selection
+res = crs.fetchall()				# valeurs de selection
+
+print(res)
+
+idem :
+SQL -> mysql-connector
+MySQL -> sqlachemy
+SQLite -> sqlite3
+Postgres -> psycopg2
+
+
+------------------CSV------------------------------------
+
+CSV -> pandas
+
+db = pd.read_csv("file_path", sep=";")
+
+-----------------EXCEL-------------------------------------
+db = pd.read_excel("file_path")
+
+
+-----------------JSON-------------------------------------
+
+JSON -> json
+
+with open('file.json') as monfichier:
+  db = json.load(monfichier)
+
+
+
+
+
+
+
+
+
+
+
+
+

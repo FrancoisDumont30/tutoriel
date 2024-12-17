@@ -54,18 +54,18 @@ change column order
 
 
 conditionnal selection :
-	reviews.country == 'Italy'
-	reviews.loc[reviews.country == 'Italy']
-	reviews.loc[(reviews.country == 'Italy') & (reviews.points >= 90)]
+	df.country == 'Italy'
+	df.loc[df.country == 'Italy']
+	df.loc[(df.country == 'Italy') & (df.points >= 90)]
 
 	isin
-	reviews.loc[reviews.country.isin(['Italy', 'France'])]
+	df.loc[df.country.isin(['Italy', 'France'])]
 
 	isnull or notnull
-	reviews.loc[reviews.price.notnull()]
+	df.loc[df.price.notnull()]
 
 assigning data :
-	reviews['critic'] = 'everyone'
+	df['critic'] = 'everyone'
 
 Functions and method :
 	df.decribe()
@@ -75,14 +75,14 @@ Functions and method :
 	df.size() → 
 
 	map()
-		reviews.points.map(lambda p: p - review_points_mean)
+		df.points.map(lambda p: p - review_points_mean)
 		return a series where all value are transformed (keeps the original)
 
-		reviews.description.map(lambda desc: "tropical" in desc).sum()
+		df.description.map(lambda desc: "tropical" in desc).sum()
 
 
 	apply()
-		reviews.apply(function, axis='columns')
+		df.apply(function, axis='columns')
 		return a dataFrame with the function applied to the column
 		axis = index : applies to rows
 
