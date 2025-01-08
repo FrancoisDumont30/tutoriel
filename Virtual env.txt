@@ -1,6 +1,6 @@
-python -m venv env		# env = nom du dossier créé
+python -m venv .venv		# env = nom du dossier créé
 
-cd env
+cd .venv
 cd Scripts
 
 source activate			# active l'environnement virtuel

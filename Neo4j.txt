@@ -16,7 +16,7 @@ MERGE (:Movie {title: 'Hoffa', tmdbId: 10410, released: '1992-12-25', imdbRating
 MATCH (n) RETURN n
 
 
-# --- Ajouter des noeuds :
+# --- Ajouter des propriétés :
 
 MERGE (u:Node_Name {Property1: Value})
 SET u.property2 = "Value"
@@ -88,30 +88,5 @@ WITH l,m
 MERGE (m)-[:IN_LANGUAGE]->(l);
 MATCH (m:Movie)
 SET m.languages = null
-
-
-
-
-# --- Test modéliser BDD Largier :
-
-MERGE (:Table {nom: 'Article_contrat', Bdd: 'Base_Contrat'})
-MERGE (:Table {nom: 'Ligne_contrat', Bdd: 'Base_Contrat'})
-MERGE (:Table {nom: 'Type_Materiel', Bdd: 'Base_Contrat'})
-MERGE (:Table {nom: 'Chapitre_CG_Contratt', Bdd: 'Base_Contrat'})
-MERGE (:Table {nom: 'Contrat', Bdd: 'Base_Contrat'})
-MERGE (:Table {nom: 'Saison', Bdd: 'Base_Contrat'})
-
-MERGE (:Table {nom: 'Type_TVA', Bdd: 'Suivi-Chantier_be2'})
-MERGE (:Table {nom: 'Affaire', Bdd: 'Suivi-Chantier_be2'})
-MERGE (:Table {nom: 'Contact_Partenaire', Bdd: 'Suivi-Chantier_be2'})
-MERGE (:Table {nom: 'Personnel', Bdd: 'Suivi-Chantier_be2'})
-
-
-
-MATCH (n) RETURN n
-
-
-
-
 
 
