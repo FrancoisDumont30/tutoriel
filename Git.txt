@@ -65,10 +65,10 @@ git clone """link""" """folder_name"""
 Config		
 ------
 
-git config (--global) user.name "Name" 
+git config --global user.name "Name" 
 	-> Sets your name for local (or all) project
 
-git config (--global) user.email "mail_adress" 
+git config --global user.email "mail_adress" 
 	-> Sets your mail for local (or all) project
 
 git config --global color.diff auto 

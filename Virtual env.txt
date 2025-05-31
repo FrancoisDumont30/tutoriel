@@ -1,12 +1,17 @@
 python -m venv .venv		# env = nom du dossier créé
 
-cd .venv
-cd Scripts
+source .venv/Scripts/activate		ou 	source .venv/bin/activate	 [linux]
 
-source activate			# active l'environnement virtuel
+
+		ou 
+		cd venv
+		cd Scripts
+		source activate			# active l'environnement virtuel
+
+
 deactivate			# désactive l'environnement virtuel
 
-python.exe -m pip install --upgrade pip
+python.exe -m pip install --upgrade pip		ou		python3 -m pip install --upgrade pip
 
 pip freeze > requirements.txt     	# Générer un fichier de dépendances
 pip install -r requirements.txt    	# Installer les paquets à partir du fichier de dépendances

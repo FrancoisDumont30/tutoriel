@@ -1,0 +1,22 @@
+# Creating project
+uv init
+uv init FOLDER
+
+# Add/remove dependencies :
+uv add PACKAGE
+uv remove PACKAGE
+
+uv add -r requirements.txt
+
+
+
+# Jupyter on VS Code
+uv add --dev ipykernel
+
+
+
+# install info :
+To add C:\Users\f.dumont\.local\bin to your PATH, either restart your shell or run:
+
+    set Path=C:\Users\f.dumont\.local\bin;%Path%   (cmd)
+    $env:Path = "C:\Users\f.dumont\.local\bin;$env:Path"   (powershell)

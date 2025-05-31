@@ -1,0 +1,22 @@
+# Lancement :
+ELK : http(s)://localhost:9200/
+Kibana : http://localhost:5601/app/home#/
+
+
+# Enlever les limites de stockage : à ajouter au fichier /config/elasticsearch.yml
+cluster.routing.allocation.disk.threshold_enabled: false
+
+
+# Enlever les sécurités de ELK : à ajouter au fichier /config/elasticsearch.yml
+xpack.security.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
+
+
+# reset the password
+./bin/elasticsearch-reset-password.bat -u elastic
+
+
+# limiter l'utilisation à 1 Gb RAM : modifier le fichier /config/jvm.options
+-Xms1g
+-Xmx1g
